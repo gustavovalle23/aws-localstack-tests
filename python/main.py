@@ -35,3 +35,17 @@ s3: S3Client = boto3.client(
 )
 
 create_bucket_if_does_not_exists(bucket_name, s3)
+
+with open("node.png", "rb") as file:
+    file_content = file.read()
+
+s3.put_object(Bucket=bucket_name, Key="path/to/file.png", Body=file_content)
+
+response = s3.list_objects(Bucket=bucket_name)
+if "Contents" in response:
+    contents = response["Contents"]
+    print(f"Bucket {bucket_name} contains {len(contents)} files:")
+    for item in contents:
+        print(item["Key"])
+else:
+    print(f"Bucket {bucket_name} is empty.")
