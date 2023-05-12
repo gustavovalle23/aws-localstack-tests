@@ -11,6 +11,15 @@ from app.env import aws_access_key_id, aws_secret_access_key, endpoint
 load_dotenv()
 
 
+def create_s3_client() -> S3Client:
+    return boto3.client(
+        "s3",
+        endpoint_url=endpoint,
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key,
+    )
+
+
 def create_bucket_if_does_not_exists(s3: S3Client, bucket_name: str) -> int:
     try:
         s3.head_bucket(Bucket=bucket_name)
@@ -25,15 +34,6 @@ def create_bucket_if_does_not_exists(s3: S3Client, bucket_name: str) -> int:
     else:
         print(f"Bucket ${bucket_name} already exists.")
         return 200
-
-
-def create_s3_client() -> S3Client:
-    return boto3.client(
-        "s3",
-        endpoint_url=endpoint,
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-    )
 
 
 def put_object_s3(s3: S3Client, bucket_name: str) -> None:
