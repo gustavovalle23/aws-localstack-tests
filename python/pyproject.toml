@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 boto3 = "^1.26.129"
-boto3-stubs = {extras = ["essential"], version = "^1.26.129"}
+boto3-stubs = {extras = ["essential", "timestream-write"], version = "^1.26.133"}
 python-dotenv = "^1.0.0"
 moto = {extras = ["s3"], version = "^4.1.9"}
 pytest = "^7.3.1"

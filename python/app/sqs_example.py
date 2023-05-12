@@ -2,7 +2,6 @@ import boto3
 from mypy_boto3_sqs.client import SQSClient
 from mypy_boto3_sqs.type_defs import SendMessageResultTypeDef
 from dotenv import load_dotenv
-from typing import Any
 
 from app.env import endpoint, aws_access_key_id, aws_secret_access_key
 

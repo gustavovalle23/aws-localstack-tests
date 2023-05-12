@@ -22,14 +22,14 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.26.129"
-description = "Type annotations for boto3 1.26.129 generated with mypy-boto3-builder 7.14.5"
+version = "1.26.133"
+description = "Type annotations for boto3 1.26.133 generated with mypy-boto3-builder 7.14.5"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "boto3-stubs-1.26.129.tar.gz", hash = "sha256:327750ec38f7b2913c1d8323e4bd52912fdcd8d4ec274c3129dc802c98f885ca"},
-    {file = "boto3_stubs-1.26.129-py3-none-any.whl", hash = "sha256:264c5cf6616eb644ef377dee8f0a7394f6c524fc28d2e5177e31f106252f5d46"},
+    {file = "boto3-stubs-1.26.133.tar.gz", hash = "sha256:a921814574761842073822dc5e9fc7ca4f1c5fdeaa53d83cd8831e060dae09c8"},
+    {file = "boto3_stubs-1.26.133-py3-none-any.whl", hash = "sha256:cc6a662700e755c1e3dec2383c146b89cd8c70b5921033504bfb8367d03a538f"},
 ]
 
 [package.dependencies]
@@ -41,6 +41,7 @@ mypy-boto3-lambda = {version = ">=1.26.0,<1.27.0", optional = true, markers = "e
 mypy-boto3-rds = {version = ">=1.26.0,<1.27.0", optional = true, markers = "extra == \"essential\""}
 mypy-boto3-s3 = {version = ">=1.26.0,<1.27.0", optional = true, markers = "extra == \"essential\""}
 mypy-boto3-sqs = {version = ">=1.26.0,<1.27.0", optional = true, markers = "extra == \"essential\""}
+mypy-boto3-timestream-write = {version = ">=1.26.0,<1.27.0", optional = true, markers = "extra == \"timestream-write\""}
 types-s3transfer = "*"
 
 [package.extras]
@@ -78,7 +79,7 @@ backup-gateway = ["mypy-boto3-backup-gateway (>=1.26.0,<1.27.0)"]
 backupstorage = ["mypy-boto3-backupstorage (>=1.26.0,<1.27.0)"]
 batch = ["mypy-boto3-batch (>=1.26.0,<1.27.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.26.0,<1.27.0)"]
-boto3 = ["boto3 (==1.26.129)", "botocore (==1.29.129)"]
+boto3 = ["boto3 (==1.26.133)", "botocore (==1.29.133)"]
 braket = ["mypy-boto3-braket (>=1.26.0,<1.27.0)"]
 budgets = ["mypy-boto3-budgets (>=1.26.0,<1.27.0)"]
 ce = ["mypy-boto3-ce (>=1.26.0,<1.27.0)"]
@@ -883,14 +884,14 @@ files = [
 
 [[package]]
 name = "mypy-boto3-rds"
-version = "1.26.116"
-description = "Type annotations for boto3.RDS 1.26.116 service generated with mypy-boto3-builder 7.14.5"
+version = "1.26.132"
+description = "Type annotations for boto3.RDS 1.26.132 service generated with mypy-boto3-builder 7.14.5"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mypy-boto3-rds-1.26.116.tar.gz", hash = "sha256:00c7e91ecc3978a8dccfcbb4544cc6830cda4c2b16bf1928b33e0aa4850ae837"},
-    {file = "mypy_boto3_rds-1.26.116-py3-none-any.whl", hash = "sha256:576ea6f37d8440a15d5c2fc55b3b7020ac8e087e69be0b98cc37258d80ce5d04"},
+    {file = "mypy-boto3-rds-1.26.132.tar.gz", hash = "sha256:b880c85b991f7e1ed92237d35c8084d002c62bf3bf5cb65f0743af532bf591cf"},
+    {file = "mypy_boto3_rds-1.26.132-py3-none-any.whl", hash = "sha256:274a686d81b5049dfc21dcc98d229248f6e6d7bf8177d1c93b8b506800018b5a"},
 ]
 
 [[package]]
@@ -916,6 +917,21 @@ files = [
     {file = "mypy-boto3-sqs-1.26.129.tar.gz", hash = "sha256:7fd7258f2d55a8c6e1f3d8268541c3085e5d42fd27b16a1cf8352ba390885b31"},
     {file = "mypy_boto3_sqs-1.26.129-py3-none-any.whl", hash = "sha256:c876df86f8ad6ae238453730c8fda2b38a37e121f773490ca90464d63dcb8cf3"},
 ]
+
+[[package]]
+name = "mypy-boto3-timestream-write"
+version = "1.26.80"
+description = "Type annotations for boto3.TimestreamWrite 1.26.80 service generated with mypy-boto3-builder 7.12.4"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "mypy-boto3-timestream-write-1.26.80.tar.gz", hash = "sha256:3912858f17550a6c305c71f517a48076f5c8867f9d8cd90b6e4433953d01ccde"},
+    {file = "mypy_boto3_timestream_write-1.26.80-py3-none-any.whl", hash = "sha256:4fbea693b8f644284482551e39e5c590cad9004644877c76345cdf6dccf89d4f"},
+]
+
+[package.dependencies]
+typing-extensions = ">=4.1.0"
 
 [[package]]
 name = "packaging"
@@ -1200,6 +1216,18 @@ files = [
 types-awscrt = "*"
 
 [[package]]
+name = "typing-extensions"
+version = "4.5.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "typing_extensions-4.5.0-py3-none-any.whl", hash = "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4"},
+    {file = "typing_extensions-4.5.0.tar.gz", hash = "sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb"},
+]
+
+[[package]]
 name = "urllib3"
 version = "1.26.15"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1249,4 +1277,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "9e6771ade2db0df042734f707c1b10f62fbc094a8279f77e5869f3579dcccf82"
+content-hash = "9c82ed84b5136c3215d7c31af7404062214cde3f4eec69fbe2c85a0b468cbae5"

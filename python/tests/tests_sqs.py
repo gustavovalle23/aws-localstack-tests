@@ -34,7 +34,7 @@ def test_sqs_create_new_queue():
 def test_sqs_send_one_message_to_queue():
     sqs = create_sqs_client()
     queue_url = create_queue_if_does_not_exists(sqs, "test_queue").get("QueueUrl")
-    response = send_queue_message(sqs, queue_url, json.dumps({"msg": "Hello World"}))
+    response = send_queue_message(sqs, queue_url, json.dumps({"msg": "Hello World1"}))
     assert response.get("MessageId") is not None
 
 
