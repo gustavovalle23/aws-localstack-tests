@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
 interface S3BaseInterface {
   s3: AWS.S3;
   bucketName: string;
@@ -11,19 +12,14 @@ interface S3BaseInterface {
 
 export const createS3Client = () => {
   return new AWS.S3({
-    endpoint,
-    accessKeyId,
-    secretAccessKey,
+    endpoint: process.env.ENDPOINT,
+    region: 'us-west-2',
     s3ForcePathStyle: true,
   })
 }
 
-const accessKeyId = process.env.ACCESS_KEY_ID;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-const endpoint = process.env.ENDPOINT;
-
 const createBucket = ({ s3, bucketName }: S3BaseInterface) => {
-  s3.createBucket({ Bucket: bucketName, CreateBucketConfiguration: { LocationConstraint: 'us-west-2' } }, (err: AWS.AWSError) => {
+  s3.createBucket({ Bucket: bucketName, CreateBucketConfiguration: { LocationConstraint: 'us-west-2', } }, (err: AWS.AWSError) => {
     if (err) {
       console.error(err);
     } else {
@@ -51,7 +47,7 @@ export const putObjectS3 = ({ s3, bucketName }: S3BaseInterface) => {
 
   const fileContent = fs.readFileSync('node.png')
 
-  s3.putObject({ Bucket: 'my-bucket', Key: 'path/to/file.png', Body: fileContent }).promise().then((response) => {
+  s3.putObject({ Bucket: bucketName, Key: 'path/to/file.png', Body: fileContent }).promise().then((response) => {
     console.log(response)
   })
 }
@@ -69,3 +65,15 @@ export const listS3Objects = ({ s3, bucketName }: S3BaseInterface) => {
     });
   });
 }
+
+const bucketName = process.env.BUCKET_NAME || 'my-bucket';
+const s3 = createS3Client()
+s3.config.update({ region: 'us-west-2' })
+
+createBucketIfDoesNotExists({ bucketName, s3 })
+
+const fileContent = fs.readFileSync('node.png')
+
+s3.putObject({ Bucket: bucketName, Key: 'path/to/file.png', Body: fileContent }).promise().then((response) => {
+  console.log(response)
+})
