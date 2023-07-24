@@ -8,8 +8,8 @@ const dynamoDBConfig = {
   region: process.env.REGION,
 };
 
-export const createS3Client = () => {
-  return new AWS.DynamoDB(dynamoDBConfig);
+export const createDynamoDBClient = () => {
+  return new AWS.DynamoDB.DocumentClient(dynamoDBConfig);
 };
 
 export const createItem = async (db: AWS.DynamoDB, tableName: string, item: any) => {
