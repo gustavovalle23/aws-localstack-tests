@@ -2,18 +2,11 @@ import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
 import { createDynamoDBClient } from '../gateways/dynamodbExample';
+import { DeleteSensorInput, SensorData, UpdateSensorInput } from './types';
 
 dotenv.config();
 
 const docClient = createDynamoDBClient()
-
-interface SensorData {
-  SensorID: string;
-  Timestamp: string;
-  PatientID: string;
-  SensorType: string;
-  Value: number;
-}
 
 const sensorDataTable = 'SensorData';
 
@@ -58,22 +51,17 @@ async function getSensorData(sensorID: string, timestamp: string): Promise<void>
   }
 }
 
-async function updateSensorData(
-  sensorID: string,
-  timestamp: string,
-  sensorType: string,
-  value: number
-): Promise<void> {
+async function updateSensorData({ SensorID, Timestamp, SensorType, Value }: UpdateSensorInput): Promise<void> {
   const params: AWS.DynamoDB.DocumentClient.UpdateItemInput = {
     TableName: sensorDataTable,
     Key: {
-      SensorID: sensorID,
-      Timestamp: timestamp,
+      SensorID,
+      Timestamp,
     },
     UpdateExpression: 'set SensorType = :st, Value = :val',
     ExpressionAttributeValues: {
-      ':st': sensorType,
-      ':val': value,
+      ':st': SensorType,
+      ':val': Value,
     },
     ReturnValues: 'UPDATED_NEW',
   };
@@ -86,12 +74,12 @@ async function updateSensorData(
   }
 }
 
-async function deleteSensorData(sensorID: string, timestamp: string): Promise<void> {
+async function deleteSensorData({ SensorID, Timestamp }: DeleteSensorInput): Promise<void> {
   const params: AWS.DynamoDB.DocumentClient.DeleteItemInput = {
     TableName: sensorDataTable,
     Key: {
-      SensorID: sensorID,
-      Timestamp: timestamp,
+      SensorID,
+      Timestamp,
     },
   };
 
@@ -106,11 +94,22 @@ async function deleteSensorData(sensorID: string, timestamp: string): Promise<vo
 async function main(): Promise<void> {
   const SensorID = uuidv4();
   const Timestamp = new Date().toISOString();
+
   await createSensorData({ PatientID: 'patient-1', SensorID, SensorType: 'presence', Timestamp, Value: 1 });
 
   await getSensorData('sensor-1', '2023-07-23T10:00:00Z');
-  await updateSensorData('sensor-1', '2023-07-23T10:00:00Z', 'heart-rate', 80);
-  await deleteSensorData('sensor-1', '2023-07-23T10:00:00Z');
+
+  await updateSensorData({
+    SensorID: 'sensor-1',
+    Timestamp: '2023-07-23T10:00:00Z',
+    SensorType: 'heart-rate',
+    Value: 80
+  });
+
+  await deleteSensorData({
+    SensorID: 'sensor-1',
+    Timestamp: '2023-07-23T10:00:00Z'
+  });
 }
 
 main();
